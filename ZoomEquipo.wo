@@ -10,6 +10,7 @@ Use cWebForm.pkg
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
+Use SelectLiga.wo
 
 Object oZoomEquipo is a cWebView
     Set piColumnCount to 12
@@ -53,6 +54,7 @@ Object oZoomEquipo is a cWebView
 
         Object oligaNombre is a cWebForm
             Entry_Item liga.Nombre
+            WebRegisterPath ntNavigateForward oSelectLiga
             Set piColumnSpan to 12
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop

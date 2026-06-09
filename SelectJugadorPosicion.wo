@@ -1,0 +1,29 @@
+﻿Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebForm.pkg
+Use cWebButton.pkg
+
+Object oSelectJugadorPosicion is a cWebView
+    Set piWidth to 700
+    Set psCaption to "SelectJugadorPosicion"
+
+    // Your DDO structure will go here
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        // place controls here
+        // Your view will grow as controls are added
+
+        Object oAddPosicionBtn is a cWebButton
+            Set psCaption to "Añadir Posición"
+            Set piColumnSpan to 4
+
+            Procedure OnClick
+                Send ShowInfoBox "Botón funcionando"
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object

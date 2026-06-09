@@ -10,6 +10,7 @@ Use cWebColumnButton.pkg
 Use cWebColumn.pkg
 
 Use cligaDataDictionary.dd
+Use ZoomLiga.wo
 
 Object oSelectLiga is a cWebView
     Set psCaption to "SelectLiga"
@@ -50,7 +51,7 @@ Object oSelectLiga is a cWebView
             Set peAlign to alignRight
 
 // ToDo: Fill in the from-main Zoom view object name for navigate forward
-//            WebRegisterPath ntNavigateForward oZoomView
+            WebRegisterPath ntNavigateForward oZoomLiga
 
             Procedure OnClick
                 Send NavigatePath
@@ -63,34 +64,32 @@ Object oSelectLiga is a cWebView
         End_Object 
 
 // ToDo: Fill in the from-parent child Select view object name for navigate forward
-//        WebRegisterPath ntNavigateForward oSelectView
+WebRegisterPath ntNavigateForward oZoomLiga
 
-        Procedure OnRowClick String sRowId
-            tWebNavigateData NavigateData
-            Get GetNavigateData to NavigateData
-
-            Case Begin
-                Case (NavigateData.eNavigateType = nfFromParent)
-// ToDo: Fill in the from-parent child Select view object name for navigate forward
-Error DFERR_PROGRAM "NavigateForward to this from-parent child Select view not yet defined"
-//                    Send NavigateForward of oSelectView Self
-                    Case Break
-
-                Case (NavigateData.eNavigateType = nfFromChild)
-                    Send NavigateClose Self
-                    Case Break
-
-                Case (NavigateData.eNavigateType = nfFromMain)
-                    Send NavigateClose Self
-                    Case Break
-
-                Case Else // must be nfUndefined
-// ToDo: Fill in the from-parent child Select view object name for navigate forward
-Error DFERR_PROGRAM "NavigateForward to this from-parent child Select view not yet defined"
-//                    Send NavigateForward of oSelectView Self
-
-            Case End
-        End_Procedure
+            Procedure OnRowClick String sRowId
+                tWebNavigateData NavigateData
+                Get GetNavigateData to NavigateData
+            
+                Case Begin
+            
+                    Case (NavigateData.eNavigateType = nfFromMain)
+                        Send NavigateForward of oZoomLiga Self
+                        Case Break
+            
+                    Case (NavigateData.eNavigateType = nfFromChild)
+                        Send NavigateClose Self
+                        Case Break
+            
+                    Case (NavigateData.eNavigateType = nfFromParent)
+                        Send NavigateClose Self
+                        Case Break
+            
+                    Case Else // nfUndefined
+                        Send NavigateForward of oZoomLiga Self
+                        Case Break
+            
+                Case End
+            End_Procedure
 
         Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
             Move True to NavigateData.bReadOnly
@@ -115,7 +114,7 @@ Error DFERR_PROGRAM "NavigateForward to this from-parent child Select view not y
             Set psCaption to "New"
 
 // ToDo: Fill in the from-main Zoom view object name for navigate forward
-//            WebRegisterPath ntNavigateForward oZoomView
+            WebRegisterPath ntNavigateForward oZoomLiga
 
             Procedure OnClick
                 Send NavigatePath

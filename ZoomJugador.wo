@@ -12,6 +12,9 @@ Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use cjugadorDataDictionary.dd
 
+Use SelectJugadorPosicion.wo
+Use cWebButton.pkg
+
 Object oZoomJugador is a cWebView
     Set piColumnCount to 12
     Set psCaption to "ZoomJugador"
@@ -110,8 +113,21 @@ Object oZoomJugador is a cWebView
             Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
-        End_Object 
-    End_Object 
+        End_Object
+
+            Object oEditarPosicionesBtn is a cWebButton
+                Set psCaption to "Editar Posiciones"
+                Set piColumnSpan to 4
+                Set piColumnIndex to 0
+            
+                WebRegisterPath ntNavigateForward oSelectJugadorPosicion
+            
+                Procedure OnClick
+                    Send NavigateForward of oSelectJugadorPosicion Self
+                End_Procedure
+            End_Object
+
+    End_Object
 
     Object oActionGroup is a cWebMenuGroup
 
