@@ -1,0 +1,134 @@
+﻿Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebButton.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
+
+Use cposicionDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
+Use cjugadorDataDictionary.dd
+Use cequipoDataDictionary.dd
+Use cligaDataDictionary.dd
+
+Object oSelectJugadorPosicion is a cWebView
+    Set piWidth to 900
+    Set psCaption to "SelectJugadorPosicion"
+
+    Property Integer piJugadorID 0
+    Property Integer piPosicionID 0
+
+    Object oliga_DD is a cligaDataDictionary
+    End_Object
+
+    Object oequipo_DD is a cequipoDataDictionary
+        Set DDO_Server to oliga_DD
+    End_Object
+
+    Object ojugador_DD is a cjugadorDataDictionary
+        Set DDO_Server to oequipo_DD
+    End_Object
+
+    Object oposicion_DD is a cposicionDataDictionary
+    End_Object
+
+    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
+        Set DDO_Server to ojugador_DD
+        Set DDO_Server to oposicion_DD
+    End_Object
+
+    Set Main_DD to ojugadorposicion_DD
+    Set Server  to ojugadorposicion_DD
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oAddPosicionBtn is a cWebButton
+            Set psCaption to "Añadir Posición"
+            Set piColumnSpan to 4
+
+        Procedure OnClick
+            Integer iJugador
+            Integer iPosicion
+        
+            Get piJugadorID to iJugador
+            Get piPosicionID to iPosicion
+        
+            Clear jugadorposicion
+        
+            Move iJugador  to jugadorposicion.JugadorID
+            Move iPosicion to jugadorposicion.PosicionID
+        
+            SaveRecord jugadorposicion
+        
+            Send Search of oPosicionesJugador
+        End_Procedure
+        End_Object
+
+        Object oDeletePosicionBtn is a cWebButton
+            Set psCaption to "Borrar Posición"
+            Set piColumnSpan to 4
+
+            Procedure OnClick
+                Send ShowInfoBox "Aquí irá el borrado"
+            End_Procedure
+        End_Object
+
+        Object oTodasPosiciones is a cWebList
+            Set Server to oposicion_DD
+            Set piColumnSpan to 6
+            Set psCSSClass to "MobileList"
+            Set pbServerOnRowClick to True
+            Set pbFillHeight to True
+            Set pbShowHeader to True
+            Set piSortColumn to 0
+
+            Object oPosNombreAll is a cWebColumn
+                Entry_Item posicion.Nombre
+                Set psCaption to "Todas las posiciones"
+                Set piWidth to 300
+            End_Object
+
+            Procedure OnRowClick String sRowId
+                Integer iPosicion
+
+                Get Field_Current_Value of oposicion_DD Field posicion.ID to iPosicion
+                Set piPosicionID to iPosicion
+
+                Send ShowInfoBox ("PosicionID = " + String(iPosicion))
+            End_Procedure
+
+        End_Object
+
+        Object oPosicionesJugador is a cWebList
+            Set Server to ojugadorposicion_DD
+            Set piColumnSpan to 6
+            Set psCSSClass to "MobileList"
+            Set pbServerOnRowClick to True
+            Set pbFillHeight to True
+            Set pbShowHeader to True
+            Set piSortColumn to 0
+
+            Object oJugadorPosNombre is a cWebColumn
+                Entry_Item posicion.Nombre
+                Set psCaption to "Posiciones del jugador"
+                Set piWidth to 300
+            End_Object
+
+        End_Object
+
+    End_Object
+
+        Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+            Integer iJugador
+        
+            Get piJugadorID to iJugador
+        
+            Send Clear of ojugadorposicion_DD
+        
+            Set Field_Changed_Value of ojugadorposicion_DD Field jugadorposicion.JugadorID to iJugador
+        
+            Send Search of oTodasPosiciones
+            Send Search of oPosicionesJugador
+        End_Procedure
+
+End_Object

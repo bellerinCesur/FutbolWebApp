@@ -1,0 +1,32 @@
+[Workspace]
+CurrentProject=WebApp.src
+Location=C:\DataFlex Projects\FutbolWebApp\IdeSrc\bellerin_Studio.dsk
+CreateNew=3
+[TabWindows]
+GroupCount=1
+HorizontalGroups=1
+[TabGroup0]
+GroupSize=40
+SelectedTab=1
+[Window0]
+Filename=C:\DataFlex Projects\FutbolWebApp\AppSrc\SelectJugadorPosicion.wo
+ViewType=1
+Top=21
+Left=0
+Bottom=694
+Right=962
+CursorLine=133
+CursorColumn=10
+TabIndex=0
+TabGroup=0
+[Window1]
+Filename=C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomJugador.wo
+ViewType=1
+Top=21
+Left=0
+Bottom=694
+Right=962
+CursorLine=117
+CursorColumn=55
+TabIndex=1
+TabGroup=0
